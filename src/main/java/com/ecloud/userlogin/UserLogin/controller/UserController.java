@@ -33,9 +33,9 @@ private UserService userService;
     }
 
     @DeleteMapping(name= "/deleteUser/{username}")
-    public User deleteUser(@PathVariable String user) {
-        User response=userService.deleteUser(user);
-        return response;
+    public String deleteUser(@PathVariable String user) {
+        userService.deleteUser(user);
+        return "Deleetd User";
     }
 
     @GetMapping(name= "/getUsers")

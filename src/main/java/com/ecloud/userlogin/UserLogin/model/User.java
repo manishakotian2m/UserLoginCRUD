@@ -5,13 +5,14 @@ import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
 @Getter
 public class User {
     @Id
-    private int id;
+    private Long id;
     private String username;
     private String password;
     private boolean isActive;

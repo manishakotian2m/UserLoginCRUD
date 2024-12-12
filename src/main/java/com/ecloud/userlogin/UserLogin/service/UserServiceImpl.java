@@ -16,27 +16,55 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+        boolean isExist=false;
         if(null!= user) {
-          //  String username=user.getUsername();
+            String username=user.getUsername();
             List<User> users = userRepo.findAll();
-//            if()
-            userRepo.save(user);
+
+                for(User u:users) {
+                   if(u.getUsername().equals(username)) {
+                       isExist=true;
+                    }
+                }
+                if(!isExist) {
+                   return userRepo.save(user);
+                }
+
+
+
         }
         return null;
     }
 
     @Override
     public User updateUser(User user) {
-      // Optional<User> userToUpdate= userRepo.findById((long) user.getId());
-//        userToUpdate= Optional.of(user);
-//        userRepo.save(userToUpdate.get());
+       Optional<User> userToUpdate= userRepo.findById((long) user.getId());
+        userToUpdate= Optional.of(user);
+        boolean isExist=false;
+        if(null!= user) {
+            String username=user.getUsername();
+            List<User> users = userRepo.findAll();
+            if(null!=userToUpdate) {
+                for(User u:users) {
+                    if(u.getUsername().equals(username)) {
+                        isExist=true;
+                    }
+                }
+                if(isExist) {
+                    return userRepo.save(userToUpdate.get());
+                }
+
+            }
+
+        }
+
         return null;
     }
 
     @Override
-    public User deleteUser(String userName) {
-//        user
-        return null;
+    public void deleteUser(String userName) {
+        User user=userRepo.findByUsername(userName);
+        userRepo.deleteById(user.getId());
     }
 
     @Override
